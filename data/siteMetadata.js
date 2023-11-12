@@ -1,23 +1,19 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'Next.js Starter Blog',
-  author: 'Tails Azimuth',
-  headerTitle: 'TailwindBlog',
-  description: 'A blog created with Next.js and Tailwind.css',
-  language: 'en-us',
+  title: 'ChocoCodeChronicles',
+  author: 'Alysée Gugler',
+  headerTitle: 'ChocoCodeChronicles',
+  description: "Bienvenue sur 'ChocoCodeChronicles' ! Je m'appelle Alysée Gugler, et ici, je relie le monde du développement informatique aux particularités de la vie suisse. À travers des analogies simples tirées de notre quotidien helvétique, de nos montagnes tranquilles au chocolat délicieux, je décompose les concepts de programmation pour les rendre accessibles à tous. Que vous soyez un expert en technologie ou simplement curieux, 'ChocoCodeChronicles' vous offre une perspective unique sur le développement informatique, alliant savoir-faire technique et touches culturelles suisses.",
+  language: 'fr-ch',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://tailwind-nextjs-starter-blog.vercel.app',
+  siteUrl: 'http://localhost:3000',
   siteRepo: 'https://github.com/timlrx/tailwind-nextjs-starter-blog',
   siteLogo: '/static/images/logo.png',
   socialBanner: '/static/images/twitter-card.png',
   mastodon: 'https://mastodon.social/@mastodonuser',
-  email: 'address@yoursite.com',
   github: 'https://github.com',
-  twitter: 'https://twitter.com/Twitter',
-  facebook: 'https://facebook.com',
-  youtube: 'https://youtube.com',
   linkedin: 'https://www.linkedin.com',
-  locale: 'en-US',
+  locale: 'fr-CH',
   analytics: {
     // If you want to use an analytics provider you have to add it to the
     // content security policy in the `next.config.js` file.

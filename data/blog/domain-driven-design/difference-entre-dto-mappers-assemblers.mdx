@@ -1,0 +1,108 @@
+---
+title: Domain Driven Design, les différences entre les DTOs, mappers et assemblers
+date: '2023-11-13'
+tags: ['DDD', 'Software Architecture', 'Programming Concepts']
+draft: false
+summary: "Dans cet article, nous explorons les concepts de Data Transfer Objects (DTO), mappers et assemblers, des éléments clés dans le développement logiciel, en utilisant la métaphore de l'horlogerie suisse!"
+---
+
+Dans cet article, nous explorons les concepts de Data Transfer Objects (DTO), mappers et assemblers, des éléments clés dans le développement logiciel, en utilisant la métaphore de l'horlogerie suisse!
+
+# Le DTO - Data Transfer Object
+
+Imaginez que les différentes pièces d'une montre suisse représentent les données brutes dans votre système. Le DTO serait alors comparable à la face visible de la montre, montrant uniquement les informations essentielles (heure, date, chronographe) de manière claire et accessible, sans exposer la complexité des mécanismes internes.
+
+En d'autres termes, il s'agit de l'objet que nous enverrons à la couche de présentation en DDD.
+
+## Exemple
+
+Nous avons une classe Montre, du domaine, avec de nombreuses informations, mais nous voulons exposer seulement certaines d'entre elles via MontreDTO.
+
+``` php
+class Montre {
+    public $marque;
+    public $mecanisme;
+    public $anneeFabrication;
+    // ... autres attributs
+}
+
+class MontreDTO {
+    public $marque;
+    public $anneeFabrication;
+    // Getters et Setters
+}
+```
+
+
+
+# Le mapper
+
+C'est là que rentre en jeu le mapper. Il va nous servir à mapper les informations de notre objet domaine, vers le DTO qui sera envoyé à la couche de présentation.
+
+Dans notre métaphore, le mapper est comme les horlogers qui transforment les composants bruts en une montre élégante, ils vont cacher le mécanisme et nous présenter que le nécessaire. 
+
+## Exemple
+
+Nous créons une fonction pour transformer une instance de Montre en MontreDTO.
+```php
+class MontreMapper {
+    public static function toDTO($montre) {
+        $dto = new MontreDTO();
+        $dto->marque = $montre->marque;
+        $dto->anneeFabrication = $montre->anneeFabrication;
+        return $dto;
+    }
+}
+```
+
+# L'assembler
+
+L'assembler servira à construire un objet complexe, composé de plusieurs DTO, à envoyer à la couche de présentation.
+
+Nous le comparerons au processus de conception d'une montre, combinant différents éléments pour créer un produit unique. 
+
+## Exemple
+Cet exemple démontre comment un MontreAssembler combine MontreDTO et BraceletDTO pour créer une vue complexe MontreVue. En d'autres termes, nous assemblons une montre complète avec son bracelet final.
+
+```php
+class MontreAssembler {
+    public static function assembler($montreDTO, $braceletDTO) {
+        $vue = new MontreVue();
+        $vue->marqueMontre = $montreDTO->marque;
+        $vue->anneeFabrication = $montreDTO->anneeFabrication;
+        $vue->typeBracelet = $braceletDTO->type;
+        // ... autres combinaisons
+        return $vue;
+    }
+}
+
+class BraceletDTO {
+    public $type;
+    // Getters et Setters
+}
+
+class MontreVue {
+    public $marqueMontre;
+    public $anneeFabrication;
+    public $typeBracelet;
+    // ... autres attributs de la vue combinée
+
+    // Getters et Setters
+}
+```
+
+# Résultat de l'architecture
+
+![Interaction dans les différentes couches DDD](/static/images/flowchartDDD.png)
+
+# Conclusion
+Les Data Transfer Objects (DTO), mappers et assemblers sont des piliers fondamentaux dans le développement logiciel, offrant structure, efficacité et clarté.
+
+**DTOs** : Ils simplifient le transfert de données entre les couches d'une application, réduisant le couplage et la surcharge de données, tout en améliorant la sécurité et la performance.
+
+**Mappers** : Ces outils facilitent la conversion entre les entités de domaine et les DTOs, favorisant un code plus propre et une maintenance aisée, tout en assurant une séparation claire des préoccupations.
+
+**Assemblers** : Ils permettent de créer des vues complexes à partir de multiples sources de données, augmentant la flexibilité et la modularité dans la présentation des données.
+
+En somme, l'utilisation de DTOs, mappers et assemblers est cruciale pour gérer efficacement les données dans les architectures logicielles modernes, rendant le code plus modulaire, maintenable et performant. Ces concepts sont donc essentiels pour répondre aux défis de la complexité croissante des applications d'aujourd'hui.
+
